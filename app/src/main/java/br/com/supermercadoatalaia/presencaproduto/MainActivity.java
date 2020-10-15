@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         }while(host.equals("ERRO!!!"));
 
         Toast.makeText(this, host, Toast.LENGTH_LONG).show();
+
+        /*
+        Passar a string host para cada camada, indo do controller até o repository
+        Mas tentar no repository ler o txt e mandar uma exception, indo até a view que recebendo
+         vai iniciar o processo de salvar um txt pedido a configuração do host
+         */
     }
 
     private void initPermissoes () {
@@ -101,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         String pasta = getExternalFilesDir("config").getAbsolutePath(); //Só não testei
 
         String nomeTxt ="app.conf";
+        File arquivo1 = new File(pasta + "/" + nomeTxt);
+        arquivo1.delete(); //Talver colocar um try
         FileWriter arquivo = new FileWriter(pasta + "/" + nomeTxt);
         PrintWriter outputStream;
 
