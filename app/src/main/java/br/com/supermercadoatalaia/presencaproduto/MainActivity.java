@@ -33,12 +33,23 @@ public class MainActivity extends AppCompatActivity {
         initPermissoes();
 
         String host = "ERRO!!!";
-        try {
-            salvarTxt();
-            host = lerTxt();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        {
+            try {
+                salvarTxt();
+                Toast.makeText(this, "Tentando ler", Toast.LENGTH_LONG).show();
+                host = lerTxt();
+                //Toast.makeText(this, host, Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+               /* try {
+                    //Toast.makeText(this, "Tentando salvar", Toast.LENGTH_LONG).show();
+                    salvarTxt();
+                    Toast.makeText(this, host, Toast.LENGTH_LONG).show();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }*/e.printStackTrace();
+            }
+        }while(host.equals("ERRO!!!"));
 
         Toast.makeText(this, host, Toast.LENGTH_LONG).show();
     }
@@ -66,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String lerTxt() throws Exception {
-        String pasta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
-        //getExternalFilesDir(Environment.DIRECTORY_DCIM).getAbsolutePath(); //Só não testei
+        //String pasta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        String pasta = getExternalFilesDir("config").getAbsolutePath(); //Só não testei
 
         String nomeTxt ="app.conf";
-        FileReader arquivo = new FileReader(pasta + "/" + nomeTxt);
+        //Toast.makeText(this, pasta, Toast.LENGTH_LONG).show();
         BufferedReader leitor =
                 new BufferedReader(
                         new InputStreamReader(
@@ -86,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void salvarTxt () throws Exception {
-        String pasta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
-        //getExternalFilesDir(Environment.DIRECTORY_DCIM).getAbsolutePath(); //Só não testei
+        //String pasta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        String pasta = getExternalFilesDir("config").getAbsolutePath(); //Só não testei
 
         String nomeTxt ="app.conf";
         FileWriter arquivo = new FileWriter(pasta + "/" + nomeTxt);
